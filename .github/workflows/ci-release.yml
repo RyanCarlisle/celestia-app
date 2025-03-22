@@ -1,5 +1,6 @@
 name: ci-release
 
+# to trigger workflow
 # Run this workflow on push events (i.e. PR merge) to main or release branches,
 # push events for new semantic version tags, and all PRs.
 on:
