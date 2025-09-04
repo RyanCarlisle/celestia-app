@@ -14,11 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Check Token
+        run: |
+          if [ -n "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "Token is set"
+          else
+            echo "Token is NOT set"
+          fi
       - uses: actions/checkout@v5
       - uses: bufbuild/buf-setup-action@v1.50.0
       - uses: bufbuild/buf-lint-action@v1
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           input: "proto"
 
   break-check:
@@ -28,6 +35,6 @@ jobs:
       - uses: bufbuild/buf-setup-action@v1.50.0
       - uses: bufbuild/buf-breaking-action@v1
         with:
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           input: "proto"
           against: "https://github.com/${{ github.repository }}.git#branch=${{ github.event.pull_request.base.ref }},ref=HEAD~1,subdir=proto"
