@@ -18,7 +18,7 @@ jobs:
       - uses: bufbuild/buf-setup-action@v1.50.0
       - uses: bufbuild/buf-lint-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.github_token }}
           input: "proto"
 
   break-check:
@@ -28,6 +28,6 @@ jobs:
       - uses: bufbuild/buf-setup-action@v1.50.0
       - uses: bufbuild/buf-breaking-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.github_token }}
           input: "proto"
           against: "https://github.com/${{ github.repository }}.git#branch=${{ github.event.pull_request.base.ref }},ref=HEAD~1,subdir=proto"
